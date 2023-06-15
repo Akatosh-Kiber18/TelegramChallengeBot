@@ -1,5 +1,5 @@
 import React from "react";
-import TaskForm from "../components/TaskForm";
+import TaskForm from "../../components/TaskForm/TaskForm.jsx";
 
 function AddTaskPage() {
     return (

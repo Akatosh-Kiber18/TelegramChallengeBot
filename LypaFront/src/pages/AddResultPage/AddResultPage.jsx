@@ -1,5 +1,5 @@
 import React from "react";
-import ResultForm from "../components/ResultForm";
+import ResultForm from "../../components/ResultForm/ResultForm.jsx";
 
 function AddResultPage() {
     return (
