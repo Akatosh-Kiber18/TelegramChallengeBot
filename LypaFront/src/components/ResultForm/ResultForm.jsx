@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function ResultForm() {
     const [selectedTask, setSelectedTask] = useState("");
@@ -20,6 +21,14 @@ function ResultForm() {
         setResult("");
     };
 
+
+    const handleCancel = () => {
+        // Logic to handle cancel
+        console.log("Adding result canceled");
+        // Clear the input field
+        setResult("");
+    };
+
     return (
         <div>
             <h2>Add Result</h2>
@@ -32,6 +41,7 @@ function ResultForm() {
             </select>
             <input type="text" value={result} onChange={handleResultChange} />
             <button onClick={handleSave}>Save</button>
+            <Link to={"/"} onClick={handleCancel}>Cancel</Link>
         </div>
     );
 }

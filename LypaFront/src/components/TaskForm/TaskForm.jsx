@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function TaskForm() {
     const [task, setTask] = useState("");
@@ -26,7 +27,7 @@ function TaskForm() {
             <h2>Add Task</h2>
             <input type="text" value={task} onChange={handleInputChange} />
             <button onClick={handleSave}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+            <Link to={"/"} onClick={handleCancel}>Cancel</Link>
         </div>
     );
 }

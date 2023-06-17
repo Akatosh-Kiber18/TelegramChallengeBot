@@ -1,12 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { getTasks } from "../../rest/tasks.rest";
 
 function TaskList() {
     // Assuming you receive the task list as a prop
-    const tasks = [
-        { id: 1, name: "Task 1" },
-        { id: 2, name: "Task 2" },
-        { id: 3, name: "Task 3" },
-    ];
+    const tasks = getTasks();
 
     return (
         <div>
@@ -14,10 +12,11 @@ function TaskList() {
             <ul>
                 {tasks.map((task) => (
                     <li key={task.id}>
-                        {task.name} - {/* Render the corresponding result for each task */}
+                        {task.name}
                     </li>
                 ))}
             </ul>
+            <Link to={"/"}>Cancel</Link>
         </div>
     );
 }
