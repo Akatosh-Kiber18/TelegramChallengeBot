@@ -17,22 +17,14 @@ function addTaskHandler (req, res) {
 
     newTask.save()
         //need to replace with res in future
-        .then(savedTask => {
-            console.log('New task saved successfully:', savedTask);
-        })
-        .catch(error => {
-            console.error('Error saving new task:', error);
-        });
+        .then(savedTask => res.json(savedTask))
+        .catch(error => res.json(error));
 }
 
-function getTasksHandler () {
+function getTasksHandler (req, res) {
     Task.findAll()
-    .then(tasks => {
-      console.log('All tasks:', tasks);
-    })
-    .catch(error => {
-      console.error('Error while returned tasks:', error);
-    });
+    .then(tasks => res.json(tasks))
+    .catch(error => res.json(error));
 }
 
 function deleteTaskHandler () {
