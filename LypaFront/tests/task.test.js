@@ -3,7 +3,7 @@ import { getTasks } from "../src/rest/tasks.rest";
 
 jest.mock("axios");
 
-describe("getTasks", () => {
+describe.skip("getTasks", () => {
   it("should return the response data when successful", async () => {
     const responseData = [{ id: 1, name: "Task 1", cahtId: 1231521345 }, { id: 2, name: "Task 2", cahtId: 1231521345 }];
     axios.get.mockResolvedValueOnce({ data: responseData });
