@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import saveResultTask from './saveResultTask.js';
 
 function ResultForm() {
     const [selectedTask, setSelectedTask] = useState("");
     const [result, setResult] = useState("");
 
     const handleTaskChange = (e) => {
-        setSelectedTask(e.target.value);
+        saveResultTask(e, setSelectedTask);
     };
 
     const handleResultChange = (e) => {
