@@ -12,14 +12,14 @@ function TaskForm() {
         setTaskData({
             name: e.target.value,
             chatId: 12314213
-        })
+        });
     };
 
     const handleSave = async () => {
         try {
-          await postTask(taskData);
+            await postTask(taskData);
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
         setTaskData({ 
             name:"",

@@ -1,2 +1,4 @@
 /LypaFront/node_modules
 /LypaBack/node_modules
+/LypaFront/coverage
+/LypaBack/coverage

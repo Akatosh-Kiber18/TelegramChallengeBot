@@ -7,16 +7,16 @@ function TaskList() {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-      async function prepareTasks() {
-        try {
-          const result = await getTasks();
-          setTasks(result);
-        } catch (error) {
-          console.error("Error fetching tasks:", error);
+        async function prepareTasks() {
+            try {
+                const result = await getTasks();
+                setTasks(result);
+            } catch (error) {
+                console.error("Error fetching tasks:", error);
+            }
         }
-      }
   
-      prepareTasks();
+        prepareTasks();
     }, []);
 
     return (

@@ -4,4 +4,4 @@ export default (event, callback) => {
     } else {
         callback("");
     }
-}
+};

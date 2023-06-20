@@ -5,7 +5,7 @@ export const taskRoutes = new Router();
 
 taskRoutes.post('/tasks', addTaskHandler);
 taskRoutes.get('/tasks', getTasksHandler);
-taskRoutes.delete('/tasks/:id', deleteTaskHandler);
+taskRoutes.delete('/tasks/:id/:chatId', deleteTaskHandler);
 
 function addTaskHandler (req, res) {
     const {name, chatId} = req.body;
@@ -27,6 +27,19 @@ function getTasksHandler (req, res) {
     .catch(error => res.json(error));
 }
 
-function deleteTaskHandler () {
-
+function deleteTaskHandler (req, res) {
+    const {id, chatId} = req.params;
+    Task.destroy({
+        where: {
+            id: id,
+            ChatID: chatId
+        }
+    })
+    .then(() => {
+        res.json({ message: 'Task deleted successfully' });
+      })
+      .catch(error => {
+        console.error('Error deleting task:', error);
+        res.status(500).json({ message: 'Failed to delete task' });
+      });
 }
