@@ -4,16 +4,16 @@ function onError(error) {
     alert(error);
     return Promise.reject(error);
 }
-//TODO get rid of hardcoded url. use env
+
 export async function getTasks() {
-    return axios.get("http://localhost:8000/tasks")
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`)
         .then(res => res.data)
         .catch(onError);
 }
 
 export async function postTask(data) {
     try {
-        const response = await axios.post("http://localhost:8000/tasks", data);
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/tasks`, data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ export async function postTask(data) {
 }
 
 export async function deleteTask(data) {
-    return axios.delete(`http://localhost:8000/tasks/${data.id}/${data.chatId}`)
+    return axios.delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${data.id}/${data.chatId}`)
         .then(res => res.data)
         .catch(onError);
 }

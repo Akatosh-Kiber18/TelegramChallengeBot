@@ -12,6 +12,7 @@ function DeleteTask() {
             try {
                 const result = await getTasks();
                 setTasks(result);
+                console.log(tasks);
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
@@ -21,7 +22,6 @@ function DeleteTask() {
     }, []);
 
     console.log(tasks);
-    //TODO figure out why needs to delete one task twise
     const handleDelete = async () => {
         const task = tasks.find((task) => task.name === selectedTask && task.ChatID === 12314213);
         const taskId = task ? task.id : null;
@@ -32,6 +32,8 @@ function DeleteTask() {
         }
         try {
             await deleteTask(data);
+            const filteredTasks = tasks.filter(task => task.id !== taskId);
+            setTasks(filteredTasks);
             console.log("Task deleted successfully");
           } catch (error) {
             console.error("Error deleting task:", error);
@@ -43,8 +45,7 @@ function DeleteTask() {
             <h2>Delete Task</h2>
             <select
                 value={selectedTask}
-                onChange={(e) => setSelectedTask(e.target.key)}
-            >
+                onChange={(e) => setSelectedTask(e.target.key)}>
                 {tasks.map((task) => (
                     <option key={task.id} value={task.id}>
                         {task.Name}

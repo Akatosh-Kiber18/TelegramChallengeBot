@@ -1,4 +1,8 @@
 /LypaFront/node_modules
 /LypaBack/node_modules
+
 /LypaFront/coverage
 /LypaBack/coverage
+
+/LypaFront/.env
+/LypaBack/.env
