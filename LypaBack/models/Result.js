@@ -1,13 +1,17 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/sequelize.js';
+import Task from './Task.js';
+import User from './User.js';
 
 const Result = sequelize.define('Result', {
     TaskID: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false
     },
     UserID: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false
     },
     Score: {

@@ -1,5 +1,6 @@
 import {Router} from "express";
 import Task from "../models/Task.js";
+import Result from "../models/Result.js";
 
 export const taskRoutes = new Router();
 
@@ -16,7 +17,6 @@ function addTaskHandler (req, res) {
       });
 
     newTask.save()
-        //need to replace with res in future
         .then(savedTask => res.json(savedTask))
         .catch(error => res.json(error));
 }
@@ -29,6 +29,12 @@ function getTasksHandler (req, res) {
 
 function deleteTaskHandler (req, res) {
     const {id, chatId} = req.params;
+    Result.destroy({
+        where: {
+            TaskID: id,
+            ChatID: chatId
+        }
+    });
     Task.destroy({
         where: {
             id: id,

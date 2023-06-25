@@ -1,27 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import saveResultTask from './saveResultTask.js';
+import { getTasks } from "../../rest/tasks.rest.js";
+import { saveResult } from "../../rest/result.rest.js";
 
 function ResultForm() {
-    const [selectedTask, setSelectedTask] = useState("");
+    const [selectedTask, setSelectedTask] = useState({});
+    const [tasks, setTasks] = useState([]);
     const [result, setResult] = useState("");
 
-    const handleTaskChange = (e) => {
-        saveResultTask(e, setSelectedTask);
+    useEffect(() => {
+        async function prepareTasksToDisplay() {
+            try {
+                const result = await getTasks();
+                setTasks(result);
+                console.log(tasks);
+            } catch (error) {
+                console.error("Error fetching tasks:", error);
+            }
+        }
+    
+        prepareTasksToDisplay();
+    }, []);
+//TODO get rid of hardcoded chatID and userID
+    const handleSave = async () => {
+        const task = tasks.find((task) => task.id == selectedTask && task.ChatID === 12314213);
+        const taskId = task ? task.id : null;
+        const data = {
+            taskId: taskId,
+            userId: 5,
+            score: result,
+            chatId: 12314213
+        };
+        try {
+            await saveResult(data);
+            setResult("");
+            console.log("Task deleted successfully");
+          } catch (error) {
+            console.error("Error deleting task:", error);
+          }
     };
-
-    const handleResultChange = (e) => {
-        setResult(e.target.value);
-    };
-
-    const handleSave = () => {
-    // Logic to save the result
-        console.log("Result saved:", result);
-        // Clear the input fields
-        setSelectedTask("");
-        setResult("");
-    };
-
 
     const handleCancel = () => {
         // Logic to handle cancel
@@ -33,14 +50,17 @@ function ResultForm() {
     return (
         <div>
             <h2>Add Result</h2>
-            <select value={selectedTask} onChange={handleTaskChange}>
-                <option value="">Select Task</option>
-                {/* Render options dynamically based on the tasks in the database */}
-                <option value="task1">Task 1</option>
-                <option value="task2">Task 2</option>
-                <option value="task3">Task 3</option>
+            <select
+                value={selectedTask}
+                onChange={(e) => setSelectedTask(e.target.value)}
+            >
+                {tasks.map((task) => (
+                    <option key={task.id} value={task.id}>
+                        {task.Name}
+                    </option>
+                ))}
             </select>
-            <input type="text" value={result} onChange={handleResultChange} />
+            <input type="text" value={result} onChange={(e) => setResult(e.target.value)}/>
             <button onClick={handleSave}>Save</button>
             <Link to={"/"} onClick={handleCancel}>Cancel</Link>
         </div>

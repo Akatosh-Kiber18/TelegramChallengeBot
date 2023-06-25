@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { getTasks, deleteTask } from "../../rest/tasks.rest";
 
 function DeleteTask() {
-    const [selectedTask, setSelectedTask] = useState("");
+    const [selectedTask, setSelectedTask] = useState({});
 
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        async function prepareTasks() {
+        async function prepareTasksToDisplay() {
             try {
                 const result = await getTasks();
                 setTasks(result);
@@ -18,18 +18,18 @@ function DeleteTask() {
             }
         }
     
-        prepareTasks();
+        prepareTasksToDisplay();
     }, []);
 
-    console.log(tasks);
     const handleDelete = async () => {
-        const task = tasks.find((task) => task.name === selectedTask && task.ChatID === 12314213);
+        const task = tasks.find((task) => task.id == selectedTask && task.ChatID === 12314213);
         const taskId = task ? task.id : null;
         //TODO remove hardcoded chat id
         const data = {
             id: taskId,
             chatId: 12314213
         }
+
         try {
             await deleteTask(data);
             const filteredTasks = tasks.filter(task => task.id !== taskId);
@@ -45,7 +45,7 @@ function DeleteTask() {
             <h2>Delete Task</h2>
             <select
                 value={selectedTask}
-                onChange={(e) => setSelectedTask(e.target.key)}>
+                onChange={(e) => setSelectedTask(e.target.value)}>
                 {tasks.map((task) => (
                     <option key={task.id} value={task.id}>
                         {task.Name}
