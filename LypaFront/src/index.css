@@ -1,0 +1,19 @@
+body {
+    margin: 5%;
+    padding: 0;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+    background-color: #f2f2f2;
+}
+
+h1 {
+    margin-left: 10%;
+    color: black;
+}
+
+a {
+    border: 3px black;
+    margin-left: 10px;
+    border-style: outset;
+    text-decoration: none;
+    padding: 3px;
+}
