@@ -28,16 +28,16 @@ function DeleteTask() {
         const data = {
             id: taskId,
             chatId: 12314213
-        }
+        };
 
         try {
             await deleteTask(data);
             const filteredTasks = tasks.filter(task => task.id !== taskId);
             setTasks(filteredTasks);
             console.log("Task deleted successfully");
-          } catch (error) {
+        } catch (error) {
             console.error("Error deleting task:", error);
-          }
+        }
     };
 
     return (
@@ -45,7 +45,8 @@ function DeleteTask() {
             <h2>Delete Task</h2>
             <select
                 value={selectedTask}
-                onChange={(e) => setSelectedTask(e.target.value)}>
+                onChange={(e) => setSelectedTask(e.target.value)}
+            >
                 {tasks.map((task) => (
                     <option key={task.id} value={task.id}>
                         {task.Name}

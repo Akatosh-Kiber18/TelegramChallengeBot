@@ -21,7 +21,7 @@ function ResultForm() {
     
         prepareTasksToDisplay();
     }, []);
-//TODO get rid of hardcoded chatID and userID
+    //TODO get rid of hardcoded chatID and userID
     const handleSave = async () => {
         const task = tasks.find((task) => task.id == selectedTask && task.ChatID === 12314213);
         const taskId = task ? task.id : null;
@@ -35,9 +35,9 @@ function ResultForm() {
             await saveResult(data);
             setResult("");
             console.log("Task deleted successfully");
-          } catch (error) {
+        } catch (error) {
             console.error("Error deleting task:", error);
-          }
+        }
     };
 
     const handleCancel = () => {

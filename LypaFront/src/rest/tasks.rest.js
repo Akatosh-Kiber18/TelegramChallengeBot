@@ -26,3 +26,9 @@ export async function deleteTask(data) {
         .then(res => res.data)
         .catch(onError);
 }
+
+export async function getTaskList(data) {
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasklist/${data.chatId}`)
+        .then(res => res.data)
+        .catch(onError);
+}
