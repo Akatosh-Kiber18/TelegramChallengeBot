@@ -10,7 +10,7 @@ const User = sequelize.define('User', {
     Name: {
       type: DataTypes.STRING(255)
     },
-    ChatID: {
+    TgID: {
       type: DataTypes.INTEGER
     }
   }, {

@@ -5,43 +5,53 @@ import User from "../models/User.js";
 
 export const taskRoutes = new Router();
 
-taskRoutes.post('/tasks', addTaskHandler);
-taskRoutes.get('/tasks', getTasksHandler);
-taskRoutes.delete('/tasks/:id/:chatId', deleteTaskHandler);
-taskRoutes.get('/tasklist/:chatId', getTaskList);
+taskRoutes.post('/api/tasks', addTaskHandler);
+taskRoutes.get('/api/tasks', getTasksHandler);
+taskRoutes.delete('/api/tasks/:id', deleteTaskHandler);
+taskRoutes.get('/api/tasklist', getTaskListHandler);
 
-function addTaskHandler (req, res) {
-    const {name, chatId} = req.body;
+async function addTaskHandler (req, res) {
+  try {
+    const { name } = req.body;
 
-    const newTask = Task.build({
+    const existingTask = await Task.findOne({
+      where: {
         Name: name,
-        ChatID: chatId
+      },
+    });
+
+    if (!existingTask) {
+      const newTask = await Task.create({
+        Name: name,
       });
 
-    newTask.save()
-        .then(savedTask => res.json(savedTask))
-        .catch(error => res.json(error));
+      res.json(newTask);
+    } else {
+      res.status(409).json({ error: "Task already exists" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 
-function getTasksHandler (req, res) {
+async function getTasksHandler (req, res) {
     Task.findAll()
     .then(tasks => res.json(tasks))
     .catch(error => res.json(error));
 }
 
-function deleteTaskHandler (req, res) {
-    const {id, chatId} = req.params;
+async function deleteTaskHandler (req, res) {
+    const {id} = req.params;
     Task.destroy({
         where: {
-            id: id,
-            ChatID: chatId
+            id: id
         }
     })
     .then(() => {
         Result.destroy({
             where: {
-                TaskID: id,
-                ChatID: chatId
+                TaskID: id
             }
         });
         res.json({ message: 'Task deleted successfully' });
@@ -52,19 +62,12 @@ function deleteTaskHandler (req, res) {
       });
 }
 
-async function getTaskList (req, res) {
+async function getTaskListHandler (req, res) {
     try {
-        const {chatId} = req.params;
         // Fetch data from each entity
-        const tasks = await Task.findAll({
-            where : {ChatID: chatId},
-        });
-        const results = await Result.findAll({
-            where : {ChatID: chatId},
-        });
-        const users = await User.findAll({
-            where : {ChatID: chatId},
-        });
+        const tasks = await Task.findAll();
+        const results = await Result.findAll();
+        const users = await User.findAll();
    
         const taskList = results.reduce((acc, result) => {
             const task = tasks.find((task) => task.id === result.TaskID);

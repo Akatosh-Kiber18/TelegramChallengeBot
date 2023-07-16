@@ -3,24 +3,23 @@ import Result from "../models/Result.js";
 
 export const resultRoutes = new Router();
 
-resultRoutes.post("/result", addResult);
-resultRoutes.get("/results", getResults);
+resultRoutes.post("/api/result", addResultHandler);
+resultRoutes.get("/api/results", getResultsHandler);
 
-function addResult (req, res) {
-    const {taskId, chatId, userId, score} = req.body;
+function addResultHandler (req, res) {
+    const {taskId, userId, score} = req.body;
 
     const newResult = Result.build({
         TaskID: taskId,
         UserID: userId,
-        Score: score,
-        ChatID: chatId
+        Score: score
     })
     newResult.save()
         .then(savedResult => res.json(savedResult))
         .catch(error => res.json(error));
 }
 
-function getResults (req, res) {
+function getResultsHandler (req, res) {
     Result.findAll()
     .then(results => res.json(results))
     .catch(error => res.json(error));

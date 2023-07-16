@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getTasks } from "../../rest/tasks.rest.js";
 import { saveResult } from "../../rest/result.rest.js";
 
-function ResultForm() {
+function ResultForm({initData}) {
     const [selectedTask, setSelectedTask] = useState({});
     const [tasks, setTasks] = useState([]);
     const [result, setResult] = useState("");
@@ -62,7 +62,7 @@ function ResultForm() {
             </select>
             <input type="text" value={result} onChange={(e) => setResult(e.target.value)}/>
             <button onClick={handleSave}>Save</button>
-            <Link to={"/"} onClick={handleCancel}>Cancel</Link>
+            <button><Link to={"/"} onClick={handleCancel}>Cancel</Link></button>
         </div>
     );
 }

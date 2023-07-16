@@ -44,7 +44,7 @@ function TaskList() {
                     );
                 })}
             </ul>
-            <Link to={"/"}>Cancel</Link>
+            <button><Link to={"/"} >Cancel</Link></button>
         </div>
     );
 }

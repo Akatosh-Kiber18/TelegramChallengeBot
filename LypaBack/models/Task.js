@@ -9,9 +9,6 @@ const Task = sequelize.define('Task', {
   },
   Name: {
     type: DataTypes.STRING(255)
-  },
-  ChatID: {
-    type: DataTypes.INTEGER
   }
 }, {
   tableName: 'TASKS',

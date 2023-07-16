@@ -4,6 +4,11 @@ import Task from './Task.js';
 import User from './User.js';
 
 const Result = sequelize.define('Result', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     TaskID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -15,9 +20,6 @@ const Result = sequelize.define('Result', {
       allowNull: false
     },
     Score: {
-      type: DataTypes.INTEGER
-    },
-    ChatID: {
       type: DataTypes.INTEGER
     }
   }, {

@@ -1,11 +1,11 @@
 import React from "react";
 import TaskForm from "../../components/TaskForm/TaskForm.jsx";
 
-function AddTaskPage() {
+function AddTaskPage({ initData, tgApp }) {
     return (
         <div>
             <h1>Add Task Page</h1>
-            <TaskForm />
+            <TaskForm userData={initData?.user} tgApp={tgApp}/>
         </div>
     );
 }

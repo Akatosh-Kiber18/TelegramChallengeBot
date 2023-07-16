@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function MainPage() {
-    return (
+return (
         <div>
             <h1>Main Page</h1>
-            <Link to="/add-task">Add Task</Link>
-            <Link to="/delete-task">Delete Task</Link>
-            <Link to="/add-result">Add Result</Link>
-            <Link to="/task-list">Task List</Link>
+            <button><Link to="/add-task">Add Task</Link></button>
+            <button><Link to="/delete-task">Delete Task</Link></button>
+            <button><Link to="/add-result">Add Result</Link></button>
+            <button><Link to="/task-list">Task List</Link></button>
         </div>
     );
 }

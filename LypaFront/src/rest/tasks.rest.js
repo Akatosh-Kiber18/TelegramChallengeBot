@@ -22,13 +22,13 @@ export async function postTask(data) {
 }
 
 export async function deleteTask(data) {
-    return axios.delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${data.id}/${data.chatId}`)
+    return axios.delete(`${process.env.REACT_APP_BACKEND_URL}/tasks/${data.id}`)
         .then(res => res.data)
         .catch(onError);
 }
 
-export async function getTaskList(data) {
-    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasklist/${data.chatId}`)
+export async function getTaskList() {
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasklist`)
         .then(res => res.data)
         .catch(onError);
 }
