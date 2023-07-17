@@ -43,15 +43,15 @@ async function getTasksHandler (req, res) {
 
 async function deleteTaskHandler (req, res) {
     const {id} = req.params;
-    Task.destroy({
+    Result.destroy({
         where: {
-            id: id
+            TaskID: id
         }
     })
     .then(() => {
-        Result.destroy({
+        Task.destroy({
             where: {
-                TaskID: id
+                id: id
             }
         });
         res.json({ message: 'Task deleted successfully' });

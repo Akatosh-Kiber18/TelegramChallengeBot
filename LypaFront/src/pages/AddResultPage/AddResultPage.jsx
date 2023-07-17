@@ -1,11 +1,11 @@
 import React from "react";
 import ResultForm from "../../components/ResultForm/ResultForm.jsx";
 
-function AddResultPage({initData}) {
+function AddResultPage({initData, tgApp}) {
     return (
         <div>
             <h1>Add Result Page</h1>
-            <ResultForm initData={initData}/>
+            <ResultForm userData={initData?.user} tgApp={tgApp}/>
         </div>
     );
 }

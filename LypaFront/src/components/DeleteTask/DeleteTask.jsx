@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getTasks, deleteTask } from "../../rest/tasks.rest";
+import { getTasks, deleteTask } from "../../rest/tasks.rest.js";
 
 function DeleteTask({tgApp}) {
     const [selectedTask, setSelectedTask] = useState({});
@@ -20,36 +20,46 @@ function DeleteTask({tgApp}) {
         prepareTasksToDisplay();
     }, []);
 
-    const handleDelete = async () => {
-        const task = tasks.find((task) => task.id == selectedTask);
-        const taskId = task ? task.id : null;
-        const data = {
-            id: taskId
-        };
-
-        try {
-            await deleteTask(data);
-            const filteredTasks = tasks.filter(task => task.id !== taskId);
-            setTasks(filteredTasks);
-            console.log("Task deleted successfully");
-        } catch (error) {
-            console.error("Error deleting task:", error);
+    const handleDelete = async (confirm) => {
+        if(confirm) {
+            const task = tasks.find((task) => task.id == selectedTask);
+            const taskId = task ? task.id : null;
+            const data = {
+                id: taskId
+            };
+            try {
+                await deleteTask(data);
+                const filteredTasks = tasks.filter(task => task.id !== taskId);
+                setTasks(filteredTasks);
+            } catch (error) {
+                console.error("Error deleting task:", error);
+            }
+        } else {
+            tgApp.showAlert("Thanks God you hold it!");
         }
     };
-
+//TODO Fix the issue with first selected task in the list. 
+//For now it returns the error as the selected task is name not id
     return (
         <div>
             <h2>Delete Task</h2>
             <select
                 value={selectedTask}
-                onChange={(e) => setSelectedTask(e.target.value)}>
+                onChange={(e) => setSelectedTask(e.target.value)}
+            >
                 {tasks.map((task) => (
                     <option key={task.id} value={task.id}>
                         {task.Name}
                     </option>
                 ))}
             </select>
-            <button onClick={() => {tgApp.showConfirm(`You want to delete ${selectedTask}.\nAre you sure?`, handleDelete)}}>Delete</button>
+            <button onClick={() => 
+            {tgApp.showConfirm(`You want to delete ${selectedTask}.
+            \nThis action will delete all score related to this task to.
+            \nAre you sure?`,
+                async (confirm) => await handleDelete(confirm) );}
+            }
+            >Delete</button>
             <button><Link to={"/"}>Cancel</Link></button>
         </div>
     );

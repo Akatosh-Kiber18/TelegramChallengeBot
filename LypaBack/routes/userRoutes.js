@@ -22,8 +22,9 @@ async function addUserHandler (req, res) {
                 Name: name,
                 TgID: tgId
             });
-    
-            res.json(newUser);
+            newUser.save()
+            .then(savedResult => res.json(savedResult))
+            .catch(error => res.json(error));
         } else {
             res.status(409).json({ error: "User already exists" });
         }

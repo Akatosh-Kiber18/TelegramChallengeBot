@@ -13,10 +13,10 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<MainPage /> } />
+                <Route path="/" element={<MainPage />} />
                 <Route path="/add-task" element={<AddTaskPage initData={initData} tgApp={tgApp}/>} />
                 <Route path="/delete-task" element={<DeleteTaskPage tgApp={tgApp}/>} />
-                <Route path="/add-result" element={<AddResultPage initData={initData}/>} />
+                <Route path="/add-result" element={<AddResultPage initData={initData} tgApp={tgApp}/>} />
                 <Route path="/task-list" element={<TaskListPage />} />
             </Routes>
         </Router>

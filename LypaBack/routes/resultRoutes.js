@@ -1,22 +1,45 @@
 import {Router} from "express";
 import Result from "../models/Result.js";
+import { where } from "sequelize";
 
 export const resultRoutes = new Router();
 
 resultRoutes.post("/api/result", addResultHandler);
 resultRoutes.get("/api/results", getResultsHandler);
 
-function addResultHandler (req, res) {
+async function addResultHandler (req, res) {
     const {taskId, userId, score} = req.body;
 
-    const newResult = Result.build({
-        TaskID: taskId,
-        UserID: userId,
-        Score: score
+    const existingResult = await Result.findOne({
+        where: {
+            TaskID: taskId,
+            UserID: userId
+        }
     })
-    newResult.save()
+
+    if (!existingResult) {
+        const newResult = Result.build({
+            TaskID: taskId,
+            UserID: userId,
+            Score: score
+        })
+        newResult.save()
+            .then(savedResult => res.json(savedResult))
+            .catch(error => res.json(error));
+    } else {
+        Result.update({
+            Score: score
+        },
+        {
+            where: {
+                TaskID: taskId,
+                UserID: userId
+            }
+        }
+        )
         .then(savedResult => res.json(savedResult))
         .catch(error => res.json(error));
+    }
 }
 
 function getResultsHandler (req, res) {

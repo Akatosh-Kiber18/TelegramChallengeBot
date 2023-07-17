@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function MainPage() {
-return (
+    return (
         <div>
             <h1>Main Page</h1>
             <button><Link to="/add-task">Add Task</Link></button>
