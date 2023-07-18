@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getTasks, deleteTask } from "../../rest/tasks.rest.js";
 
 function DeleteTask({tgApp}) {
-    const [selectedTask, setSelectedTask] = useState({});
+    const [selectedTask, setSelectedTask] = useState();
 
     const [tasks, setTasks] = useState([]);
 
@@ -12,6 +12,9 @@ function DeleteTask({tgApp}) {
             try {
                 const result = await getTasks();
                 setTasks(result);
+                if(result.length > 0) {
+                    setSelectedTask(result[0].Name);
+                }
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
@@ -22,7 +25,7 @@ function DeleteTask({tgApp}) {
 
     const handleDelete = async (confirm) => {
         if(confirm) {
-            const task = tasks.find((task) => task.id == selectedTask);
+            const task = tasks.find((task) => task.Name == selectedTask);
             const taskId = task ? task.id : null;
             const data = {
                 id: taskId
@@ -38,8 +41,7 @@ function DeleteTask({tgApp}) {
             tgApp.showAlert("Thanks God you hold it!");
         }
     };
-//TODO Fix the issue with first selected task in the list. 
-//For now it returns the error as the selected task is name not id
+    
     return (
         <div>
             <h2>Delete Task</h2>
@@ -48,14 +50,13 @@ function DeleteTask({tgApp}) {
                 onChange={(e) => setSelectedTask(e.target.value)}
             >
                 {tasks.map((task) => (
-                    <option key={task.id} value={task.id}>
+                    <option key={task.id} value={task.Name}>
                         {task.Name}
                     </option>
                 ))}
             </select>
             <button onClick={() => 
-            {tgApp.showConfirm(`You want to delete ${selectedTask}.
-            \nThis action will delete all score related to this task to.
+            {tgApp.showConfirm(`This action will delete all score related to this task to.
             \nAre you sure?`,
                 async (confirm) => await handleDelete(confirm) );}
             }

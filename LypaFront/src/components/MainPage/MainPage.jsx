@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styles from "./MainPage.module.css"
 
 function MainPage() {
     return (
-        <div>
+        <div className={styles.MainPage}>
             <h1>Main Page</h1>
-            <button><Link to="/add-task">Add Task</Link></button>
-            <button><Link to="/delete-task">Delete Task</Link></button>
-            <button><Link to="/add-result">Add Result</Link></button>
-            <button><Link to="/task-list">Task List</Link></button>
+            <Link className={styles.link} to="/add-task">Add Task</Link>
+            <Link className={styles.link} to="/delete-task">Delete Task</Link>
+            <Link className={styles.link} to="/add-result">Add Result</Link>
+            <Link className={styles.link} to="/task-list">Task List</Link>
         </div>
     );
 }

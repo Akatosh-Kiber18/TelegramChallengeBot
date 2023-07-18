@@ -5,7 +5,7 @@ import { saveResult } from "../../rest/result.rest.js";
 import { getUsers, postUser } from "../../rest/user.rest.js";
 
 function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
-    const [selectedTask, setSelectedTask] = useState({});
+    const [selectedTask, setSelectedTask] = useState();
     const [user, setUser] = useState({ name: "", tgId: "" });
     const [tasks, setTasks] = useState([]);
     const [result, setResult] = useState("");
@@ -41,6 +41,9 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
             try {
                 const result = await getTasks();
                 setTasks(result);
+                if(result.length > 0) {
+                    setSelectedTask(result[0].Name);
+                }
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
@@ -52,7 +55,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
         await addUser();
         const users = await getUsers();
         const curUser = users.find((usr) => usr.TgID == user.tgId)
-        const task = tasks.find((task) => task.id == selectedTask);
+        const task = tasks.find((task) => task.Name == selectedTask);
         const taskId = task ? task.id : null;
         const data = {
             taskId: taskId,
@@ -86,7 +89,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
                 onChange={(e) => setSelectedTask(e.target.value)}
             >
                 {tasks.map((task) => (
-                    <option key={task.id} value={task.id}>
+                    <option key={task.id} value={task.Name}>
                         {task.Name}
                     </option>
                 ))}

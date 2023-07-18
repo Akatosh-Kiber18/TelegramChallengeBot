@@ -1,0 +1,13 @@
+
+.MainPage {
+    display: flex;
+    flex-direction: column;
+  }
+
+.link {
+    flex: 1;
+    background: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+    width: 100%;
+    margin: 10px;
+}  
