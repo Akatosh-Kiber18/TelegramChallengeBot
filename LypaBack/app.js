@@ -9,7 +9,7 @@ const PORT = 8000;
 
 const app = express();
 
-const bot = new TelegramBot(process.env.TOKEN, { polling: true }); 
+const bot = new TelegramBot(process.env.TG_TOKEN, { polling: true }); 
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
