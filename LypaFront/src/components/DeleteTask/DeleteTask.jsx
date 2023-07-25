@@ -34,6 +34,7 @@ function DeleteTask({tgApp}) {
                 await deleteTask(data);
                 const filteredTasks = tasks.filter(task => task.id !== taskId);
                 setTasks(filteredTasks);
+                tgApp.showAlert(`"${task.Name}" deleted.`);
             } catch (error) {
                 console.error("Error deleting task:", error);
             }

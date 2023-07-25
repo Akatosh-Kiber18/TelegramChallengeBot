@@ -72,6 +72,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
 
         try {
             await saveResult(data);
+            tgApp.showAlert(`Score added for ${task.Name}`);
             setResult("");
         } catch (error) {
             tgApp.showAlert(`Failed while adding result for ${task.Name}`);

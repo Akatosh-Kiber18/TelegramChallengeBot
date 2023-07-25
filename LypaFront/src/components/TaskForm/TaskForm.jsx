@@ -15,7 +15,7 @@ function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
     const taskExist = async () => {
         try {
             const result = await getTasks();
-            const exist = result.some((element) => element.Name === task.name);
+            const exist = result.some((element) => element.Name === task.name.trim());
             return exist;
         } catch (error) {
             console.error(error);
@@ -48,7 +48,7 @@ function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
             const exist = await taskExist();
             if (!exist) {
                 await addUser(user);
-                await postTask(task);
+                await postTask({name:task.name.trim()});
                 tgApp.showAlert("Task '" + task.name + "' added!");
             } else {
                 tgApp.showAlert("Task '" + task.name + "' already exists!");
