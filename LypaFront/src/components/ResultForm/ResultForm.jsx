@@ -62,9 +62,16 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
             userId: curUser.id,
             score: result,
         };
+
+        const scoreRegex = /^[0-9]+$/;
+        if (!scoreRegex.test(data.score)) {
+            tgApp.showAlert("Invalid score. Score must be a whole number.");
+            setResult("");
+            return;
+        }
+
         try {
             await saveResult(data);
-            tgApp.showAlert(`Result for ${task.Name} added`);
             setResult("");
         } catch (error) {
             tgApp.showAlert(`Failed while adding result for ${task.Name}`);

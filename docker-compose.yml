@@ -18,7 +18,7 @@ services:
       context: ./LypaFront
       dockerfile: Dockerfile
     environment:
-      - REACT_APP_BACKEND_URL = /api
+      - REACT_APP_BACKEND_URL=/api
     ports:
       - "3000:3000"
     networks:
@@ -30,11 +30,11 @@ services:
       context: ./LypaBack
       dockerfile: Dockerfile
     environment:
-      - DB_HOST = localhost
-      - DB_USERNAME = root
-      - DB_PASSWORD = admin
-      - DB_DATABASE = lypadb
-      - TG_TOKEN = 
+      - DB_HOST=db
+      - DB_USERNAME=root
+      - DB_PASSWORD=admin
+      - DB_DATABASE=lypadb
+      - TG_TOKEN=
     ports:
       - "8000:8000"
     networks:

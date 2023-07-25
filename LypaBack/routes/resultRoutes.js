@@ -17,6 +17,11 @@ async function addResultHandler (req, res) {
         }
     })
 
+    const scoreRegex = /^[0-9]+$/;
+    if (!scoreRegex.test(score)) {
+        return res.status(400).json({ error: "Invalid score. Score must be a whole number." });
+    }
+
     if (!existingResult) {
         const newResult = Result.build({
             TaskID: taskId,
