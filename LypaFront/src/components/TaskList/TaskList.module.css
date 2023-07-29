@@ -1,0 +1,14 @@
+.tableContainer {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin-top: 15px;
+  }
+  
+  .taskTable th,
+  .taskTable td {
+    padding: 10px;
+    text-align: left;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
