@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "npx jest --coverage",
     "lint": "eslint 'src/**/*.{js,jsx}'",
     "lint-fix": "eslint 'src/**/*.{js,jsx}' --fix"
