@@ -1,7 +1,7 @@
 import axios from "axios";
 
 function onError(error) {
-    alert(error);
+    console.error(error);
     return Promise.reject(error);
 }
 

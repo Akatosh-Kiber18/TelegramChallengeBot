@@ -41,17 +41,17 @@ services:
       - lypa-network
     depends_on:
       - db    
-  nginx:
-    build:
-      context: ./nginx  
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - lypa-network
-    depends_on:
-      - web  
+  # nginx:
+  #   build:
+  #     context: ./nginx  
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   networks:
+  #     - lypa-network
+  #   depends_on:
+  #     - web  
 volumes:
   lypa-mysql-data:
 networks:
