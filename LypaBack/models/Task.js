@@ -9,6 +9,9 @@ const Task = sequelize.define('Task', {
   },
   Name: {
     type: DataTypes.STRING(255)
+  },
+  Description: {
+    type: DataTypes.STRING(255)
   }
 }, {
   tableName: 'TASKS',

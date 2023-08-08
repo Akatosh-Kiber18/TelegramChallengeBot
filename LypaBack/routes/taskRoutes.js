@@ -12,7 +12,7 @@ taskRoutes.get('/api/tasklist', getTaskListHandler);
 
 async function addTaskHandler (req, res) {
   try {
-    const { name } = req.body;
+    const { name, description } = req.body;
 
     const existingTask = await Task.findOne({
       where: {
@@ -23,6 +23,7 @@ async function addTaskHandler (req, res) {
     if (!existingTask) {
       const newTask = await Task.create({
         Name: name,
+        Description: description
       });
 
       res.json(newTask);

@@ -6,7 +6,8 @@ import { getUsers, postUser } from "../../rest/user.rest.js";
 function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
     const [task, setTaskData] = useState({ name: "" });
     const [user, setUser] = useState({ name: "", tgId: "" });
-  
+    const [description, setDescription] = useState();
+
     useEffect(() => {
         const userName = `${first_name} ${last_name}`;
         setUser({ name: userName, tgId: id });
@@ -48,7 +49,10 @@ function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
             const exist = await taskExist();
             if (!exist) {
                 await addUser(user);
-                await postTask({name:task.name.trim()});
+                await postTask({
+                    name: task.name.trim(),
+                    description: description.trim()
+                });
                 tgApp.showAlert("Task '" + task.name + "' added!");
             } else {
                 tgApp.showAlert("Task '" + task.name + "' already exists!");
@@ -56,14 +60,13 @@ function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
         } catch (error) {
             console.error(error);
         }
-        setTaskData({ name: "" });
+        setTaskData({name: ""});
+        setDescription("");
     };
   
-    const handleCancel = () => {
-        setTaskData({
-            name: ""
-        });
-    };
+    const updateDesscription = (e) => {
+        setDescription(e.target.value);
+    }
   
     const handleInputChange = (e) => {
         setTaskData({
@@ -71,10 +74,23 @@ function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
         });
     };
   
+    const handleCancel = () => {
+        setTaskData({
+            name: ""
+        });
+        setDescription("");
+    };
+
     return (
         <div>
             <h2>Add Task</h2>
-            <input type="text" value={task.name} onChange={handleInputChange} />
+            <div>
+                <input type="text" value={task.name} onChange={handleInputChange} />
+                <span>
+                    <h4>Description</h4>
+                </span>
+                <input type="text" value={description} onChange={updateDesscription}/>
+            </div>
             <button onClick={handleSave}>Save</button>
             <button>
                 <Link to={"/"} onClick={handleCancel}>

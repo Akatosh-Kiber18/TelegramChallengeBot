@@ -2,7 +2,8 @@ ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'admin';
 
 CREATE TABLE TASKS (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  Name VARCHAR(255)
+  Name VARCHAR(255),
+  Description VARCHAR(255)
 );
 
 CREATE TABLE USERS (
