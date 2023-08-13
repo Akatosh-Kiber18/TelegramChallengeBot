@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { getTasks } from "../../rest/tasks.rest.js";
 import { saveResult } from "../../rest/result.rest.js";
 import { getUsers, postUser } from "../../rest/user.rest.js";
+import styles from  "./ResultForm.module.css";
 
 function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
     const [selectedTask, setSelectedTask] = useState();
     const [user, setUser] = useState({ name: "", tgId: "" });
     const [tasks, setTasks] = useState([]);
     const [result, setResult] = useState("");
+    const [desctiption, setDescription] = useState("");
 
     useEffect(() => {
         const userName = `${first_name} ${last_name}`;
@@ -43,6 +45,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
                 setTasks(result);
                 if(result.length > 0) {
                     setSelectedTask(result[0].Name);
+                    setDescription(result[0].Description);
                 }
             } catch (error) {
                 console.error("Error fetching tasks:", error);
@@ -51,6 +54,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
     
         prepareTasksToDisplay();
     }, []);
+
     const handleSave = async () => {
         await addUser();
         const users = await getUsers();
@@ -65,7 +69,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
 
         const scoreRegex = /^[0-9]+$/;
         if (!scoreRegex.test(data.score)) {
-            tgApp.showAlert("Invalid score. Score must be a whole number.");
+            tgApp.showAlert("Invalid score. Score must be a number.");
             setResult("");
             return;
         }
@@ -80,21 +84,22 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
         }
     };
 
+    const updateDescription = async (taskName) => {
+        const task = await tasks.find((task) => task.Name == taskName);
+        setDescription(task.Description);
+    }
+
     const handleCancel = () => {
-        // Logic to handle cancel
-        console.log("Adding result canceled");
-        // Clear the input field
         setResult("");
     };
 
-//TODO Fix the issue with first selected task in the list. 
-//For now it returns the error as the selected task is name not id
     return (
         <div>
             <h2>Add Result</h2>
             <select
+                className={styles.optionField}
                 value={selectedTask}
-                onChange={(e) => setSelectedTask(e.target.value)}
+                onChange={(e) => {setSelectedTask(e.target.value); updateDescription(e.target.value)}}
             >
                 {tasks.map((task) => (
                     <option key={task.id} value={task.Name}>
@@ -103,8 +108,12 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
                 ))}
             </select>
             <input type="text" value={result} onChange={(e) => setResult(e.target.value)}/>
-            <button onClick={handleSave}>Save</button>
-            <button><Link to={"/"} onClick={handleCancel}>Cancel</Link></button>
+            <h3>Description of the task:</h3>
+            <p>{desctiption ? desctiption : "No description"}</p>
+            <div className={styles.buttonContainer}>
+                <button onClick={handleSave}>Save</button>
+                <button><Link to={"/"} className={styles.linkButton} onClick={handleCancel}>Cancel</Link></button>
+            </div>
         </div>
     );
 }

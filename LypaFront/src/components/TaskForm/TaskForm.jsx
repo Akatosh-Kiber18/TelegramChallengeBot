@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getTasks, postTask } from "../../rest/tasks.rest.js";
 import { getUsers, postUser } from "../../rest/user.rest.js";
+import styles from  "./TaskForm.module.css";
 
 function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
     const [task, setTaskData] = useState({ name: "" });
@@ -83,20 +84,20 @@ function TaskForm({ userData: { first_name, last_name, id }, tgApp }) {
 
     return (
         <div>
-            <h2>Add Task</h2>
-            <div>
+            <h3>Task Name</h3>
+            <div className={styles.inputContainer}>
                 <input type="text" value={task.name} onChange={handleInputChange} />
-                <span>
-                    <h4>Description</h4>
-                </span>
+                <h3>Description</h3>
                 <input type="text" value={description} onChange={updateDesscription}/>
             </div>
-            <button onClick={handleSave}>Save</button>
-            <button>
-                <Link to={"/"} onClick={handleCancel}>
-                    Cancel
-                </Link>
-            </button>
+            <div className={styles.buttonContainer}>
+                <button onClick={handleSave}>Save</button>
+                <button>
+                    <Link to={"/"} className={styles.linkButton} onClick={handleCancel}>
+                        Cancel
+                    </Link>
+                </button>
+            </div>
         </div>
     );
 }  

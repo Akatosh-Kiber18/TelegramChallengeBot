@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getTasks, deleteTask } from "../../rest/tasks.rest.js";
+import styles from  "./DeleteTask.module.css";
 
 function DeleteTask({tgApp}) {
     const [selectedTask, setSelectedTask] = useState();
@@ -47,6 +48,7 @@ function DeleteTask({tgApp}) {
         <div>
             <h2>Delete Task</h2>
             <select
+                className={styles.optionField}
                 value={selectedTask}
                 onChange={(e) => setSelectedTask(e.target.value)}
             >
@@ -56,13 +58,15 @@ function DeleteTask({tgApp}) {
                     </option>
                 ))}
             </select>
-            <button onClick={() => 
-            {tgApp.showConfirm(`This action will delete all score related to this task to.
-            \nAre you sure?`,
-                async (confirm) => await handleDelete(confirm) );}
-            }
-            >Delete</button>
-            <button><Link to={"/"}>Cancel</Link></button>
+            <div className={styles.buttonContainer}>
+                <button onClick={() => 
+                {tgApp.showConfirm(`This action will delete all score related to this task to.
+                \nAre you sure?`,
+                    async (confirm) => await handleDelete(confirm) );}
+                }
+                >Delete</button>
+                <button><Link className={styles.linkButton} to={"/"}>Cancel</Link></button>
+            </div>
         </div>
     );
 }

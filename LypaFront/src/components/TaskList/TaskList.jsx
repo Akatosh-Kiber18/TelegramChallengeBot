@@ -43,7 +43,7 @@ function TaskList() {
 
   return (
     <div>
-    <h2>Task List</h2>
+    <h2>Scoreboard</h2>
     <div className={styles.tableContainer}>
       <table className={styles.taskTable}>
         <thead>
@@ -64,9 +64,11 @@ function TaskList() {
         </tbody>
       </table>
     </div>
-    <button>
-      <Link to={"/"}>Cancel</Link>
-    </button>
+    <div>
+      <button className={styles.buttonContainer}>
+        <Link className={styles.linkButton} to={"/"}>Cancel</Link>
+      </button>
+    </div>
   </div>
 );
 }

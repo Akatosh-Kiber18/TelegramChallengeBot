@@ -13,4 +13,13 @@ button {
     margin-left: 10px;
     background: var(--tg-theme-button-color);
     color: var(--tg-theme-button-text-color);
+    flex: 1;
+    padding: 8px 16px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
