@@ -23,7 +23,17 @@ const badWords =
 "hui",
 "huy",
 "fuck",
-"fock"
+"fock",
+"3.14zda",
+"3.14зда",
+"пизда",
+"блядь",
+"бля",
+"bl9d",
+"bled",
+"pizda",
+"pzdc",
+"пздц"
 ]
 
 export function validateTask(task) {

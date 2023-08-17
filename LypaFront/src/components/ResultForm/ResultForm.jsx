@@ -84,8 +84,8 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
         }
     };
 
-    const updateDescription = async (taskName) => {
-        const task = await tasks.find((task) => task.Name == taskName);
+    const updateDescription = (taskName) => {
+        const task = tasks.find((task) => task.Name == taskName);
         setDescription(task.Description);
     }
 
@@ -95,7 +95,7 @@ function ResultForm({userData: { first_name, last_name, id }, tgApp}) {
 
     return (
         <div>
-            <h2>Add Result</h2>
+            <h3>Add Result</h3>
             <select
                 className={styles.optionField}
                 value={selectedTask}

@@ -5,8 +5,8 @@ import styles from  "./DeleteTask.module.css";
 
 function DeleteTask({tgApp}) {
     const [selectedTask, setSelectedTask] = useState();
-
     const [tasks, setTasks] = useState([]);
+    const [desctiption, setDescription] = useState("");
 
     useEffect(() => {
         async function prepareTasksToDisplay() {
@@ -15,6 +15,7 @@ function DeleteTask({tgApp}) {
                 setTasks(result);
                 if(result.length > 0) {
                     setSelectedTask(result[0].Name);
+                    setDescription(result[0].Description);
                 }
             } catch (error) {
                 console.error("Error fetching tasks:", error);
@@ -43,14 +44,19 @@ function DeleteTask({tgApp}) {
             tgApp.showAlert("Thanks God you hold it!");
         }
     };
+
+    const updateDescription = (taskName) => {
+        const task = tasks.find((task) => task.Name == taskName);
+        setDescription(task.Description);
+    }
     
     return (
         <div>
-            <h2>Delete Task</h2>
+            <h3>Delete Task</h3>
             <select
                 className={styles.optionField}
                 value={selectedTask}
-                onChange={(e) => setSelectedTask(e.target.value)}
+                onChange={(e) => {setSelectedTask(e.target.value); updateDescription(e.target.value);}}
             >
                 {tasks.map((task) => (
                     <option key={task.id} value={task.Name}>
@@ -58,6 +64,8 @@ function DeleteTask({tgApp}) {
                     </option>
                 ))}
             </select>
+            <h3>Description of the task:</h3>
+            <p>{desctiption ? desctiption : "No description"}</p>
             <div className={styles.buttonContainer}>
                 <button onClick={() => 
                 {tgApp.showConfirm(`This action will delete all score related to this task to.

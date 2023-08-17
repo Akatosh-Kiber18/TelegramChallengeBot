@@ -8,8 +8,8 @@
     flex: 1;
     background: var(--tg-theme-button-color);
     color: var(--tg-theme-button-text-color);
-    width: 100%;
+    width: 90%;
     margin: 10px;
     padding: 10px;
-    height: 10%;
+    height: 15%;
 }  
