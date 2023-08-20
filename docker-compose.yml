@@ -6,9 +6,9 @@ services:
       - lypa-mysql-data:/var/lib/mysql
       - ./initTables.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      MYSQL_DATABASE: lypadb
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE:
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
     ports:
       - "3306:3306"
     networks:
@@ -18,7 +18,7 @@ services:
       context: ./LypaFront
       dockerfile: Dockerfile
     environment:
-      - REACT_APP_BACKEND_URL=/api
+      - REACT_APP_BACKEND_URL=
     ports:
       - "3000:3000"
     networks:
@@ -31,9 +31,9 @@ services:
       dockerfile: Dockerfile
     environment:
       - DB_HOST=db
-      - DB_USERNAME=root
-      - DB_PASSWORD=admin
-      - DB_DATABASE=lypadb
+      - DB_USERNAME=
+      - DB_PASSWORD=
+      - DB_DATABASE=
       - TG_TOKEN=
     ports:
       - "8000:8000"
@@ -41,17 +41,6 @@ services:
       - lypa-network
     depends_on:
       - db    
-  # nginx:
-  #   build:
-  #     context: ./nginx  
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   networks:
-  #     - lypa-network
-  #   depends_on:
-  #     - web  
 volumes:
   lypa-mysql-data:
 networks:
