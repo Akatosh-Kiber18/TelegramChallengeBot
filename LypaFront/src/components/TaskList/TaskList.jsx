@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getTaskList } from "../../rest/tasks.rest";
+import { getTaskList, getTask } from "../../rest/tasks.rest";
 import styles from "./TaskList.module.css";
 
 function TaskList() {
   const [taskList, setTaskList] = useState([]);
-  const [sortBy, setSortBy] = useState(""); // State to keep track of the current sorting option
-
+  const [sortBy, setSortBy] = useState("");
   useEffect(() => {
     async function prepareTasks() {
       try {
         const result = await getTaskList();
 
-        // Convert the taskList object to an array of objects with properties for task, user, and result
         const tasksArray = [];
         result.forEach((taskObj) => {
           const taskName = Object.keys(taskObj)[0];
@@ -41,6 +39,11 @@ function TaskList() {
     setSortBy(column);
   };
 
+  const showTaskDescription = async (name) => {
+    const task = await getTask(name);
+    tgApp.showAlert(`${task.Description}`);
+  }
+
   return (
     <div>
       <div className={styles.header}>
@@ -61,7 +64,7 @@ function TaskList() {
         <tbody>
           {taskList.map((taskObj, index) => (
             <tr key={index}>
-              <td>{taskObj.task}</td>
+              <td onClick={() => showTaskDescription(taskObj.task)}>{taskObj.task}</td>
               <td>{taskObj.user}</td>
               <td>{taskObj.result}</td>
             </tr>

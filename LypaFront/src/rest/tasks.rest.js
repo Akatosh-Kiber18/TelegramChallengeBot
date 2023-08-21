@@ -5,6 +5,12 @@ function onError(error) {
     return Promise.reject(error);
 }
 
+export async function getTask(name) {
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/task`, name)
+    .then(res => res.data)
+    .catch(onError);
+}
+
 export async function getTasks() {
     return axios.get(`${process.env.REACT_APP_BACKEND_URL}/tasks`)
         .then(res => res.data)

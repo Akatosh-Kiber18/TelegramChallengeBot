@@ -7,6 +7,7 @@ export const taskRoutes = new Router();
 
 taskRoutes.post('/api/tasks', addTaskHandler);
 taskRoutes.get('/api/tasks', getTasksHandler);
+taskRoutes.get('/api/task', getTaskHandler)
 taskRoutes.delete('/api/tasks/:id', deleteTaskHandler);
 taskRoutes.get('/api/tasklist', getTaskListHandler);
 
@@ -34,6 +35,18 @@ async function addTaskHandler (req, res) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+}
+
+async function getTaskHandler (req, res) {
+  const name = req.body
+  Task.findOne(
+    {
+      where: {
+        Name: name
+    }
+  })
+  .then(task => res.json(task))
+  .catch(error => res.json(error));
 }
 
 async function getTasksHandler (req, res) {
