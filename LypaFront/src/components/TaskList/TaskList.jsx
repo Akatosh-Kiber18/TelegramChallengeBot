@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getTaskList, getTask } from "../../rest/tasks.rest";
+import { getTaskList, getTasks } from "../../rest/tasks.rest";
 import styles from "./TaskList.module.css";
 
 function TaskList({tgApp}) {
