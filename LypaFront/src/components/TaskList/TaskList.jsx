@@ -40,7 +40,7 @@ function TaskList({tgApp}) {
   };
 
   const showTaskDescription = async (name) => {
-    const task = await getTask(name);
+    const task = await getTask({name});
     tgApp.showAlert(`${task.Description}`);
   }
 

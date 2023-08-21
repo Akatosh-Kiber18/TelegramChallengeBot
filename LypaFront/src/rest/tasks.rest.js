@@ -5,8 +5,8 @@ function onError(error) {
     return Promise.reject(error);
 }
 
-export async function getTask(name) {
-    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/task`, name)
+export async function getTask(data) {
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/task`, data)
     .then(res => res.data)
     .catch(onError);
 }

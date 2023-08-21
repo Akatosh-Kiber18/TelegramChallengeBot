@@ -38,7 +38,7 @@ async function addTaskHandler (req, res) {
 }
 
 async function getTaskHandler (req, res) {
-  const name = req.body
+  const { name } = req.body
   Task.findOne(
     {
       where: {
