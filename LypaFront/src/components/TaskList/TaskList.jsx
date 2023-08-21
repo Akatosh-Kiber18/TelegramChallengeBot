@@ -6,10 +6,13 @@ import styles from "./TaskList.module.css";
 function TaskList({tgApp}) {
   const [taskList, setTaskList] = useState([]);
   const [sortBy, setSortBy] = useState("");
+  const [tasks, setTasks] = useState([]);
   useEffect(() => {
     async function prepareTasks() {
       try {
         const result = await getTaskList();
+        const tasks = await getTasks();
+        setTasks(tasks);
 
         const tasksArray = [];
         result.forEach((taskObj) => {
@@ -39,9 +42,9 @@ function TaskList({tgApp}) {
     setSortBy(column);
   };
 
-  const showTaskDescription = async (name) => {
-    const task = await getTask({name});
-    tgApp.showAlert(`${task.Description}`);
+  const showTaskDescription = (name) => {
+        const task = tasks.find((task) => task.Name == name);
+        tgApp.showAlert("Description: \n" + task.Description);
   }
 
   return (
