@@ -17,7 +17,7 @@ function App() {
                 <Route path="/add-task" element={<AddTaskPage initData={initData} tgApp={tgApp}/>} />
                 <Route path="/delete-task" element={<DeleteTaskPage tgApp={tgApp}/>} />
                 <Route path="/add-result" element={<AddResultPage initData={initData} tgApp={tgApp}/>} />
-                <Route path="/task-list" element={<TaskListPage />} />
+                <Route path="/task-list" element={<TaskListPage tgApp={tgApp}/>} />
             </Routes>
         </Router>
     );

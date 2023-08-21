@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getTaskList, getTask } from "../../rest/tasks.rest";
 import styles from "./TaskList.module.css";
 
-function TaskList() {
+function TaskList({tgApp}) {
   const [taskList, setTaskList] = useState([]);
   const [sortBy, setSortBy] = useState("");
   useEffect(() => {
